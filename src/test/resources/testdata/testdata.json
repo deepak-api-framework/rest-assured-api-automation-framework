@@ -1,0 +1,17 @@
+[
+  {
+    "name": "Head Office",
+    "address": "Gurugram",
+    "language": "English"
+  },
+  {
+    "name": "Second Office",
+    "address": "Faridabad",
+    "language": "English"
+  },
+  {
+    "name": "Clients Office",
+    "address": "Mumbai",
+    "language": "English"
+  }
+]
