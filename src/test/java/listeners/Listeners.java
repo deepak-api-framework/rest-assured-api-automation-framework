@@ -13,26 +13,29 @@ public class Listeners implements ITestListener {
 
     ExtentReports extent = ExtentReporterNG.getReportObject();
 
-    public static ExtentTest test;
+    public static ThreadLocal<ExtentTest> test = new ThreadLocal<>();
 
     @Override
     public void onTestStart(ITestResult result) {
 
-        test = extent.createTest(result.getMethod().getMethodName());
+    	ExtentTest extentTest =
+    	        extent.createTest(result.getMethod().getMethodName());
+
+    	test.set(extentTest);
 
     }
 
     @Override
     public void onTestSuccess(ITestResult result) {
 
-        test.pass("Test Passed");
+        test.get().pass("Test Passed");
 
     }
 
     @Override
     public void onTestFailure(ITestResult result) {
 
-        test.fail(result.getThrowable());
+        test.get().fail(result.getThrowable());
 
     }
 

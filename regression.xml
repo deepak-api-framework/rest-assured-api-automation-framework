@@ -1,0 +1,22 @@
+
+
+<suite name="API Regression Suite">
+
+    <listeners>
+        <listener class-name="listeners.Listeners"/>
+    </listeners>
+
+    <test name="Modular API Tests">
+
+        <classes>
+
+            <class name="tests.AddPlaceTest"/>
+            <class name="tests.GetPlaceTest"/>
+            <class name="tests.UpdatePlaceTest"/>
+            <class name="tests.DeletePlaceTest"/>
+
+        </classes>
+
+    </test>
+
+</suite>

@@ -2,129 +2,117 @@ package utils;
 
 import io.restassured.response.Response;
 import resources.HTTPMethod;
-import com.aventstack.extentreports.ExtentTest;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import static io.restassured.RestAssured.*;
 
 import java.util.Map;
 
-import base.RequestBuilder;
+import com.aventstack.extentreports.ExtentTest;
 
+import base.RequestBuilder;
 
 public class APIUtils {
 
-	public static Response postRequest(String endpoint, Object payload) {
+    public static Response sendRequest(
 
-		return given().spec(RequestBuilder.requestSpecification()).body(payload)
+            String endpoint,
 
-				.when().post(endpoint)
+            HTTPMethod method,
 
-				.then().extract().response();
-	}
+            Object payload,
 
-	public static Response getRequest(String endpoint, String queryParamKey, String queryParamValue) {
+            Map<String, String> queryParams,ExtentTest test) {
 
-		return given()
+        Response response = null;
 
-				.spec(RequestBuilder.requestSpecification())
+        switch (method) {
 
-				.queryParam(queryParamKey, queryParamValue)
+        case POST:
 
-				.when()
+            response = given()
 
-				.get(endpoint)
+                    .spec(RequestBuilder.requestSpecification())
 
-				.then()
+                    .body(payload)
 
-				.extract()
+                    .when()
 
-				.response();
-	}
+                    .post(endpoint)
 
-	public static Response sendRequest(
+                    .then()
 
-			String endpoint,
+                    .extract()
 
-			HTTPMethod method,
+                    .response();
 
-			Object payload,
+            break;
 
-			Map<String, String> queryParams,
+        case GET:
 
-			ExtentTest test) throws JsonProcessingException {
+            response = given()
 
-		Response response = null;
+                    .spec(RequestBuilder.requestSpecification())
 
-		test.info("HTTP Method: " + method);
+                    .queryParams(queryParams)
 
-		test.info("Endpoint: " + endpoint);
+                    .when()
 
-		if (payload != null) {
-		    ObjectMapper mapper = new ObjectMapper();
-		    String jsonPayload = mapper.writeValueAsString(payload);
-		    test.info("Request Payload: " + jsonPayload);
-		}
+                    .get(endpoint)
 
-		if (queryParams != null) {
+                    .then()
 
-			test.info("Query Params: " + queryParams.toString());
-		}
+                    .extract()
 
-		switch (method) {
+                    .response();
 
-		case POST:
+            break;
 
-			response = given()
+        case PUT:
 
-					.spec(RequestBuilder.requestSpecification())
+            response = given()
 
-					.body(payload)
+                    .spec(RequestBuilder.requestSpecification())
 
-					.when()
+                    .body(payload)
 
-					.post(endpoint)
+                    .when()
 
-					.then()
+                    .put(endpoint)
 
-					.extract()
+                    .then()
 
-					.response();
+                    .extract()
 
-			break;
+                    .response();
 
-		case GET:
+            break;
+            
+        case DELETE:
 
-			response = given()
+            response = given()
 
-					.spec(RequestBuilder.requestSpecification()).queryParams(queryParams)
+                    .spec(RequestBuilder.requestSpecification())
 
-					.when()
+                    .body(payload)
 
-					.get(endpoint)
+                    .when()
 
-					.then()
+                    .delete(endpoint)
 
-					.extract()
+                    .then()
 
-					.response();
-			break;
+                    .extract()
 
-		default:
+                    .response();
 
-			throw new IllegalArgumentException("Invalid HTTP Method");
+            break;
+           
 
-		}
+        default:
 
-		if (response != null) {
+            throw new IllegalArgumentException("Invalid HTTP Method");
+        }
 
-			test.info("Response Status Code: " + response.getStatusCode());
-
-			test.info("Response Body: " + response.asPrettyString());
-		}
-
-		return response;
-
-	}
+        return response;
+    }
 }

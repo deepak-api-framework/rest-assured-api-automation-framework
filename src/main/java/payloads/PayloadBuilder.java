@@ -1,9 +1,12 @@
 package payloads;
 
+import java.io.IOException;
 import java.util.Arrays;
 
 import pojo.AddPlace;
 import pojo.Location;
+import pojo.UpdatePlaceRequest;
+import utils.ConfigReader;
 
 public class PayloadBuilder {
 
@@ -34,5 +37,27 @@ public class PayloadBuilder {
         addPlace.setLanguage(language);
 
         return addPlace;
+    }
+    
+    public static UpdatePlaceRequest updatePlacePayload(String placeId, String newAddress) throws IOException {
+    	
+    	ConfigReader configReader = new ConfigReader();
+
+        UpdatePlaceRequest updateRequest = new UpdatePlaceRequest();
+
+        updateRequest.setPlace_id(placeId);
+
+        updateRequest.setAddress(newAddress);
+
+        updateRequest.setKey(configReader.getApiKey());
+
+        return updateRequest;
+    }
+    
+    public static String deletePlacePayload(String placeId) {
+
+        return "{\n"
+                + "\"place_id\":\"" + placeId + "\"\n"
+                + "}";
     }
 }

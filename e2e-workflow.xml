@@ -1,0 +1,19 @@
+
+
+<suite name="Workflow Suite">
+
+    <listeners>
+        <listener class-name="listeners.Listeners"/>
+    </listeners>
+
+    <test name="Complete Workflow Test">
+
+        <classes>
+
+            <class name="workflow.PlaceWorkflowTest"/>
+
+        </classes>
+
+    </test>
+
+</suite>
