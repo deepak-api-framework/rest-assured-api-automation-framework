@@ -3,8 +3,8 @@ pipeline {
     agent any
 
     tools {
-        maven 'Maven'
-        jdk 'Java21'
+        maven 'Maven3'
+        jdk 'JDK21'
     }
 
     stages {
