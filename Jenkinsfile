@@ -43,8 +43,8 @@ pipeline {
 
         always {
 
-            archiveArtifacts artifacts: 'test-output/ExtentReports.html',
-                    fingerprint: true
+            archiveArtifacts artifacts: 'reports/index.html',
+                fingerprint: true
         }
     }
 }
