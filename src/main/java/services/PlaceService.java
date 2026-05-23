@@ -16,6 +16,7 @@ import pojo.UpdatePlaceRequest;
 import resources.APIResources;
 import resources.HTTPMethod;
 import utils.APIUtils;
+import validators.SchemaValidatorUtil;
 
 public class PlaceService {
 
@@ -38,6 +39,8 @@ public class PlaceService {
 				payload,
 
 				null, test);
+		
+		SchemaValidatorUtil.validateSchema(response, "addPlaceSchema.json");
 
 		AddPlaceResponse addPlaceResponse = response.as(AddPlaceResponse.class);
 
