@@ -45,6 +45,15 @@ pipeline {
 
             archiveArtifacts artifacts: 'reports/index.html',
                 fingerprint: true
+                
+            publishHTML([
+            allowMissing: false,
+            alwaysLinkToLastBuild: true,
+            keepAll: true,
+            reportDir: 'reports',
+            reportFiles: 'index.html',
+            reportName: 'Extent Report'
+        ])
         }
     }
 }
