@@ -1,17 +1,14 @@
-
-
 <suite name="Workflow Suite">
 
     <listeners>
-        <listener class-name="listeners.Listeners"/>
+        <listener class-name="listeners.RetryListener" />
+        <listener class-name="listeners.Listeners" />
     </listeners>
 
     <test name="Complete Workflow Test">
 
         <classes>
-
-            <class name="workflow.PlaceWorkflowTest"/>
-
+            <class name="workflow.PlaceWorkflowTest" />
         </classes>
 
     </test>

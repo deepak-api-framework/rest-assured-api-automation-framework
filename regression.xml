@@ -1,22 +1,22 @@
-
-
 <suite name="API Regression Suite">
 
-    <listeners>
-        <listener class-name="listeners.Listeners"/>
+	<listeners>
+        <listener class-name="listeners.RetryListener" />
+        <listener class-name="listeners.Listeners" />
     </listeners>
 
-    <test name="Modular API Tests">
 
-        <classes>
+	<test name="Modular API Tests">
 
-            <class name="tests.AddPlaceTest"/>
-            <class name="tests.GetPlaceTest"/>
-            <class name="tests.UpdatePlaceTest"/>
-            <class name="tests.DeletePlaceTest"/>
+		<classes>
 
-        </classes>
+			<class name="tests.AddPlaceTest" />
+			<class name="tests.GetPlaceTest" />
+			<class name="tests.UpdatePlaceTest" />
+			<class name="tests.DeletePlaceTest" />
 
-    </test>
+		</classes>
+
+	</test>
 
 </suite>
