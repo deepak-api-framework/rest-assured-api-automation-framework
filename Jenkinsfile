@@ -2,6 +2,10 @@ pipeline {
 
     agent any
 
+    options {
+        skipDefaultCheckout(true)
+    }
+
     tools {
         maven 'Maven3'
         jdk 'JDK21'
@@ -12,13 +16,16 @@ pipeline {
         stage('Checkout') {
 
             steps {
-                git 'https://github.com/deepak-api-framework/rest-assured-api-automation-framework'
+
+                git branch: 'main',
+                    url: 'https://github.com/deepak-api-framework/rest-assured-api-automation-framework'
             }
         }
 
         stage('Build') {
 
             steps {
+
                 bat 'mvn clean compile'
             }
         }
@@ -26,6 +33,7 @@ pipeline {
         stage('Run Regression Suite') {
 
             steps {
+
                 bat 'mvn test -DsuiteXmlFile=regression.xml'
             }
         }
