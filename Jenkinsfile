@@ -22,21 +22,18 @@ pipeline {
             }
         }
 
-        stage('Build') {
+        stage('Build Docker Image') {
+    	steps {
+        bat 'docker build -t rest-api-framework .'
+    		}
+		}
 
-            steps {
-
-                bat 'mvn clean compile'
-            }
-        }
-
-        stage('Run Regression Suite') {
-
-            steps {
-
-                bat 'mvn test -DsuiteXmlFile=regression.xml'
-            }
-        }
+		stage('Run Tests Inside Docker') {
+    	steps {
+        bat 'docker run rest-api-framework'
+    		}
+		}
+        
     }
 
     post {
