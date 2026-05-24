@@ -29,10 +29,12 @@ pipeline {
 		}
 
 		stage('Run Tests Inside Docker') {
-    	steps {
-        bat 'docker run rest-api-framework'
-    		}
-		}
+
+    steps {
+
+        bat 'docker run -v "%WORKSPACE%/reports:/app/reports" rest-api-framework'
+    }
+}
         
     }
 
