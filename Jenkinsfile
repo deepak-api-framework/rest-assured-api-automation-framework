@@ -32,7 +32,7 @@ pipeline {
 
     steps {
 
-        bat 'docker run -v "%WORKSPACE%/reports:/app/reports" rest-api-framework'
+        bat 'docker run -v "%WORKSPACE%\\reports:/app/reports" rest-api-framework'
     }
 }
         
