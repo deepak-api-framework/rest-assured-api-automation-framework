@@ -1,4 +1,11 @@
 pipeline {
+	stage('Clean Reports') {
+
+    steps {
+
+        bat 'if exist reports rmdir /s /q reports'
+    }
+	}
 
     agent any
 
@@ -32,7 +39,10 @@ pipeline {
 
     steps {
 
-        bat 'docker run -v "%WORKSPACE%\\reports:/app/reports" rest-api-framework'
+        bat '''
+		if not exist reports mkdir reports
+		docker run -v "%WORKSPACE%\\reports:/app/reports" rest-api-framework
+		'''
     }
 }
         
