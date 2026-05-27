@@ -1,11 +1,5 @@
 pipeline {
-	stage('Clean Reports') {
-
-    steps {
-
-        bat 'if exist reports rmdir /s /q reports'
-    }
-	}
+	
 
     agent any
 
@@ -19,6 +13,15 @@ pipeline {
     }
 
     stages {
+		
+		stage('Clean Reports') {
+
+    steps {
+
+        bat 'if exist reports rmdir /s /q reports'
+    }
+	}
+	
 
         stage('Checkout') {
 
@@ -28,6 +31,14 @@ pipeline {
                     url: 'https://github.com/deepak-api-framework/rest-assured-api-automation-framework'
             }
         }
+        
+        stage('Build') {
+
+        steps {
+
+            bat 'mvn clean compile'
+        }
+    }
 
         stage('Build Docker Image') {
     	steps {
@@ -58,7 +69,7 @@ pipeline {
             publishHTML([
             allowMissing: false,
             alwaysLinkToLastBuild: true,
-            keepAll: true,
+            keepAll: false,
             reportDir: 'reports',
             reportFiles: 'index.html',
             reportName: 'Extent Report'
