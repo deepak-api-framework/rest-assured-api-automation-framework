@@ -1,0 +1,29 @@
+name: API Automation Framework
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+
+  api-tests:
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '21'
+
+      - name: Setup Maven
+        run: mvn -version
+
+      - name: Run Regression Suite
+        run: mvn test -DsuiteXmlFile=regression.xml
