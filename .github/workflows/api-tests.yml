@@ -5,6 +5,8 @@ on:
     branches:
       - main
 
+  workflow_dispatch:
+
 jobs:
 
   api-tests:
@@ -27,3 +29,9 @@ jobs:
 
       - name: Run Regression Suite
         run: mvn test -DsuiteXmlFile=regression.xml
+
+      - name: Upload Extent Report
+        uses: actions/upload-artifact@v4
+        with:
+          name: extent-report
+          path: reports/index.html
