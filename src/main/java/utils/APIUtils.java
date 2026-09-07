@@ -24,8 +24,9 @@ public class APIUtils {
             Map<String, String> queryParams,ExtentTest test) {
 
         Response response = null;
-
-        switch (method) {
+        
+        try {
+        	switch (method) {
 
         case POST:
 
@@ -112,6 +113,23 @@ public class APIUtils {
 
             throw new IllegalArgumentException("Invalid HTTP Method");
         }
+        	
+        } catch (Exception e) {
+
+            LoggerUtil.error(
+                    "API request failed. Method: "
+                    + method
+                    + ", Endpoint: "
+                    + endpoint
+                    + ", Error: "
+                    + e.getMessage()
+            );
+
+            throw e;
+        }
+        
+        LoggerUtil.info("HTTP " + method + " request sent to: " + endpoint);
+        LoggerUtil.info("Response status code: " + response.getStatusCode());
 
         return response;
     }

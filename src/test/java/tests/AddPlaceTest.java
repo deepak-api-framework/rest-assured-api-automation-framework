@@ -2,6 +2,7 @@ package tests;
 
 import java.util.Map;
 
+import utils.LoggerUtil;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -23,6 +24,7 @@ public class AddPlaceTest extends BaseTest {
     	ExtentTest test = Listeners.test.get();
 
         test.info("Executing Add Place API");
+        LoggerUtil.info("Starting Add Place API");
 
         AddPlaceResponse response =
                 PlaceService.createPlace(data, test);
